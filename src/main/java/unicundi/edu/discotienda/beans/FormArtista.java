@@ -12,6 +12,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.primefaces.event.RowEditEvent;
@@ -52,18 +54,21 @@ public class FormArtista implements Serializable {
     public void agregarArtista() {
         System.out.println("Entro al metodo Agregar");
         service.agregarArtista(nombre, generoMusical);
-
     }
 
     public void editarArtista(RowEditEvent event) {
-
+       service.actualizarArtista(event);
+        
     }
 
     public void cancelarEdicion(RowEditEvent event) {
-
+        FacesMessage msg = new FacesMessage("Edicion Cancelada");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
-    public void eliminarArtista() {
+    public void eliminarArtista(Artista artista) {
+        System.out.println("Entro metodoeliminar");
+        service.eliminarArtista(artista);
 
     }
 

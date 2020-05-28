@@ -42,4 +42,14 @@ public class Artista implements Serializable {
     public void setGeneroMusical(String generoMusical) {
         this.generoMusical = generoMusical;
     }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+    
+    
 }

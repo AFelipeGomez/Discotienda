@@ -18,6 +18,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import org.primefaces.event.RowEditEvent;
 import unicundi.edu.discotienda.Model.Artista;
 import unicundi.edu.discotienda.Model.Conexion;
 
@@ -29,6 +30,7 @@ import unicundi.edu.discotienda.Model.Conexion;
 @RequestScoped
 public class ServicioArtista {
 
+    private Integer id;
     private List<Artista> listaArtista;
     @Inject
     private ServicioSentencia service;
@@ -43,10 +45,7 @@ public class ServicioArtista {
 
     @PostConstruct
     public void init() {
-        listaArtista.add(new Artista(1, "Prueba1", "Prueba"));
-        listaArtista.add(new Artista(2, "Prueba2", "Prueba"));
-        listaArtista.add(new Artista(3, "Prueba3", "Prueba"));
-        listaArtista.add(new Artista(4, "Prueba4", "Prueba"));
+       
     }
 
     public void agregarArtista(String nombre, String generoMusical) {
@@ -69,9 +68,8 @@ public class ServicioArtista {
 
     public void listarArtista() {
         System.out.println("Entro listar");
-        listaArtista = new ArrayList<>();
-       
-//Conexion
+        listaArtista = new ArrayList<>();      
+
         try {
             
 
@@ -88,7 +86,34 @@ public class ServicioArtista {
             System.out.println("Entro excepcion metodo listar");
         }
     }
+    
+   public void actualizarArtista(RowEditEvent event){
+       System.out.println("Entro metodo actualizacion");
+        Artista artista = (Artista) event.getObject();
+        this.id = artista.getId();
+       System.out.println("Id "+id);        
+        String Sql = "UPDATE artista SET nombre='"+artista.getNombre()+"',generoMusical='"+artista.getGeneroMusical()+"' WHERE id="+artista.getId()+";";
+        System.out.println("Sql"+Sql); 
+        service.transaccionesSql(Sql);        
+        FacesMessage message = new FacesMessage("Actualizo Artista " + artista.getNombre());
+        FacesContext.getCurrentInstance().addMessage(null, message);
 
+        
+    }
+   
+   public void eliminarArtista(Artista artista){
+       System.out.println("Entro metodo eliminar");
+       Artista artistas= artista; 
+        String Sql = "DELETE FROM artista WHERE id" + "=" + artistas.getId() + ";";
+        System.out.println("Sql delete"+Sql);
+        service.transaccionesSql(Sql);    
+        FacesMessage message = new FacesMessage("Se Elimino el artista: " + artistas.getNombre());        
+        FacesContext.getCurrentInstance().addMessage(null, message);
+        
+        
+   }
+
+    
     public List<Artista> getListaArtista() {
         return listaArtista;
     }

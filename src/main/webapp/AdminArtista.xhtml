@@ -39,7 +39,7 @@
                             </p:selectOneMenu>  
                             <p:commandButton value="Guardar"  ajax="true" action="#{formArtista.agregarArtista()}" style="margin-right:20px;" update=":form1:messages"  />
                         </p:panelGrid>
-                    </p:panel>
+                    
                     
 
                         <p:spacer height="10px;"/>
@@ -92,7 +92,7 @@
                     </p:column>
                     <p:column headerText="Acciones">                          
                         <f:facet name="Eliminar"/>  
-                        <p:commandButton  ajax="true" action="#{formArtista.eliminarArtista}" update=":form1" style="margin-right:50px;" value="Eliminar">
+                        <p:commandButton  ajax="true" action="#{formArtista.eliminarArtista(art)}" update=":form1" style="margin-right:50px;" value="Eliminar">
 
                         </p:commandButton>
                     </p:column>
@@ -100,7 +100,7 @@
                 </p:dataTable>
             
             
-
+</p:panel>
         </h:form>
         
                 </ui:define>
