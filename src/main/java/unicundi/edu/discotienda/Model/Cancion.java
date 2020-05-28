@@ -18,6 +18,9 @@ public class Cancion {
     private String duracion;
     private String formato;
     private Integer precio;
+    public Cancion(){
+        
+    }
 
     public Cancion(Integer id, String nombre, String duracion, String formato, Integer precio) {
         this.id = id;
