@@ -11,12 +11,12 @@
     <h:body>
         <ui:composition template="./TemplateAdmin.xhtml">
             <ui:define name="content">
-        <div>
-            <h1>Artistas</h1>
-        </div>
-        <h:form id="form1">
-             <p:growl id="messages" showDetail="true"/>
-            <p:panel header="Agregar Artistas" style="width: 1300px;"> 
+                <div>
+                    <h1>Artistas</h1>
+                </div>
+                <h:form id="form1">
+                    <p:growl id="messages" showDetail="true"/>
+                    <p:panel header="Agregar Artistas" style="width: 1300px;"> 
                         <p:panelGrid columns="5" styleClass="showcase-text-align-center">
                             <p:column>
                                 <h:outputText value = "Nombre: " />
@@ -27,7 +27,7 @@
                             <p:column>
                                 <h:outputText value = "Genero Musical: " />
                             </p:column>
-                            
+
                             <p:selectOneMenu id="genero" value="#{formArtista.generoMusical}" style="width:125px">
                                 <f:selectItem itemValue="" itemLabel= "" />
                                 <f:selectItem itemValue="electronica" itemLabel= "Electronica" />
@@ -39,69 +39,69 @@
                             </p:selectOneMenu>  
                             <p:commandButton value="Guardar"  ajax="true" action="#{formArtista.agregarArtista()}" style="margin-right:20px;" update=":form1:messages"  />
                         </p:panelGrid>
-                    
-                    
+
+
 
                         <p:spacer height="10px;"/>
-                <p:dataTable id="actualizar" value="#{formArtista.listaArtista}" var="art"  widgetVar="50" style="width: 1250px;" editable="true"
+                        <p:dataTable id="actualizar" value="#{formArtista.listaArtista}" var="art"  widgetVar="50" style="width: 1250px;" editable="true"
                                      paginator="true"         
                                      rows="5"                                     
                                      paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                      currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros">
 
-                    <p:ajax event="rowEdit" listener="#{formArtista.editarArtista}" update=":form1:messages" />  
-                    <p:ajax event="rowEditCancel" listener="#{formArtista.cancelarEdicion}" update=":form1:messages"  /> 
+                            <p:ajax event="rowEdit" listener="#{formArtista.editarArtista}" update=":form1:messages" />  
+                            <p:ajax event="rowEditCancel" listener="#{formArtista.cancelarEdicion}" update=":form1:messages"  /> 
 
-                    <p:column filterBy="#{art.nombre}" headerText="Nombre" filterMatchMode="contains" sortBy="#{art.nombre}">
-                        <f:facet name="header">  
-                            <h:outputText value="Nombre" />  
-                        </f:facet>
-                        <p:cellEditor>  
-                            <f:facet name="output">  
-                                <h:outputText value="#{art.nombre}" />  
-                            </f:facet>  
-                            <f:facet name="input">  
-                                <p:inputText value="#{art.nombre}" style="width:100%"/>  
-                            </f:facet>  
-                        </p:cellEditor> 
-                    </p:column>
+                            <p:column filterBy="#{art.nombre}" headerText="Nombre" filterMatchMode="contains" sortBy="#{art.nombre}">
+                                <f:facet name="header">  
+                                    <h:outputText value="Nombre" />  
+                                </f:facet>
+                                <p:cellEditor>  
+                                    <f:facet name="output">  
+                                        <h:outputText value="#{art.nombre}" />  
+                                    </f:facet>  
+                                    <f:facet name="input">  
+                                        <p:inputText value="#{art.nombre}" style="width:100%"/>  
+                                    </f:facet>  
+                                </p:cellEditor> 
+                            </p:column>
 
-                    <p:column filterBy="#{art.generoMusical}" headerText="Nombre" filterMatchMode="contains" sortBy="#{art.generoMusical}">
-                        <f:facet name="header">  
-                            <h:outputText value="Genero" />  
-                        </f:facet>
-                        <p:cellEditor>  
-                            <f:facet name="output">  
-                                <h:outputText value="#{art.generoMusical}" />  
-                            </f:facet>  
-                            <f:facet name="input">  
-                                <p:selectOneMenu id="genero" value="#{art.generoMusical}" style="width:125px">
-                                    <f:selectItem itemValue="" itemLabel= "" />
-                                    <f:selectItem itemValue="electronica" itemLabel= "Electronica" />
-                                    <f:selectItem itemValue="rock" itemLabel= "Rock" />
-                                    <f:selectItem itemValue="jazz" itemLabel= "Jazz" />
-                                    <f:selectItem itemValue="pop" itemLabel= "Pop" />
-                                    <f:selectItem itemValue="vallenato" itemLabel= "Vallenato" />
-                                    <f:selectItem itemValue="popular" itemLabel= "Popular" />
-                                </p:selectOneMenu>                            
-                            </f:facet>  
-                        </p:cellEditor>
-                    </p:column>
-                    <p:column headerText="Acciones" style="width:100px">  
-                        <p:rowEditor />  
-                    </p:column>
-                    <p:column headerText="Acciones">                          
-                        <f:facet name="Eliminar"/>  
-                        <p:commandButton  ajax="true" action="#{formArtista.eliminarArtista(art)}" update=":form1" style="margin-right:50px;" value="Eliminar">
+                            <p:column filterBy="#{art.generoMusical}" headerText="Nombre" filterMatchMode="contains" sortBy="#{art.generoMusical}">
+                                <f:facet name="header">  
+                                    <h:outputText value="Genero" />  
+                                </f:facet>
+                                <p:cellEditor>  
+                                    <f:facet name="output">  
+                                        <h:outputText value="#{art.generoMusical}" />  
+                                    </f:facet>  
+                                    <f:facet name="input">  
+                                        <p:selectOneMenu id="genero" value="#{art.generoMusical}" style="width:125px">
+                                            <f:selectItem itemValue="" itemLabel= "" />
+                                            <f:selectItem itemValue="electronica" itemLabel= "Electronica" />
+                                            <f:selectItem itemValue="rock" itemLabel= "Rock" />
+                                            <f:selectItem itemValue="jazz" itemLabel= "Jazz" />
+                                            <f:selectItem itemValue="pop" itemLabel= "Pop" />
+                                            <f:selectItem itemValue="vallenato" itemLabel= "Vallenato" />
+                                            <f:selectItem itemValue="popular" itemLabel= "Popular" />
+                                        </p:selectOneMenu>                            
+                                    </f:facet>  
+                                </p:cellEditor>
+                            </p:column>
+                            <p:column headerText="Acciones" style="width:100px">  
+                                <p:rowEditor />  
+                            </p:column>
+                            <p:column headerText="Acciones">                          
+                                <f:facet name="Eliminar"/>  
+                                <p:commandButton  ajax="true" action="#{formArtista.eliminarArtista(art)}" update=":form1" style="margin-right:50px;" value="Eliminar">
 
-                        </p:commandButton>
-                    </p:column>
+                                </p:commandButton>
+                            </p:column>
 
-                </p:dataTable>
-            
-            
-</p:panel>
-        </h:form>
+                        </p:dataTable>
+
+
+                    </p:panel>
+                </h:form>
         
                 </ui:define>
         </ui:composition>

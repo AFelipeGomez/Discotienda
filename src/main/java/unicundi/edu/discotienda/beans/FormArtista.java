@@ -29,7 +29,7 @@ import unicundi.edu.discotienda.Model.Artista;
 public class FormArtista implements Serializable {
 
     private List<Artista> listaArtista;
-
+    private int id;
     private String nombre;
     private String generoMusical;
 
@@ -70,6 +70,14 @@ public class FormArtista implements Serializable {
         System.out.println("Entro metodoeliminar");
         service.eliminarArtista(artista);
 
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void consultarArtista() {

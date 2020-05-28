@@ -25,6 +25,10 @@ public class Disco {
         this.precio = precio;
     }
 
+    public Disco() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public Integer getId() {
         return id;
     }
