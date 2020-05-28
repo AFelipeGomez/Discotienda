@@ -32,7 +32,7 @@ public class ServicioSentencia implements Serializable{
     public ServicioSentencia() {
        System.out.println("Entro Constructor servicioSentencia");
        try {
-           System.out.println("Entro try catch");
+           System.out.println("Entro try");
             Conexion conexion = new Conexion();            
             conexion.conexionDataBase();            
             this.conex = conexion.getConex();

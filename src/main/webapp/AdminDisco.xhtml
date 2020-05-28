@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <title>Discos</title>
+    </h:head>
+    <body>
+        <ui:composition template="./TemplateAdmin.xhtml">
+            <ui:define name="content">
+                <div>
+                    <h1>Discos</h1>
+                </div>
+                <script type="text/javascript">
+       PrimeFaces.locales ['de'] = {
+        closeText: 'Schließen',
+        prevText: 'Zurück',
+        nextText: 'Weiter',
+        monthNames: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember' ],
+        monthNamesShort: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez' ],
+        dayNames: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
+        dayNamesShort: ['Son', 'Mon', 'Die', 'Mit', 'Don', 'Fre', 'Sam'],
+        dayNamesMin: ['S', 'M', 'D', 'M ', 'D', 'F ', 'S'],
+        weekHeader: 'Woche',
+        firstDay: 1,
+        isRTL: false,
+        showMonthAfterYear: false,
+        yearSuffix:'',
+        timeOnlyTitle: 'Nur Zeit',
+        timeText: 'Zeit',
+        hourText: 'Stunde',
+        minuteText: 'Minute',
+        secondText: 'Sekunde',
+        currentText: 'Aktuelles Datum',
+        ampm: false,
+        month: 'Monat',
+        week: 'Woche',
+        day: 'Tag',
+        allDayText: 'Ganzer Tag'
+    };
+</script>
+ 
+<script type="text/javascript">
+    //<![CDATA[
+    function dateTemplateFunc(date) {
+        return '<span style="background-color:' + ((date.day < 21 && date.day > 10) ? '#81C784' : 'inherit') + ';border-radius:50%;padding: .25em;width: 1.75em; height:1.75em; display:block;">' + date.day + '</span>';
+    }
+    //]]>
+</script>
+ 
+<style type="text/css">
+    .value {
+        font-weight: bold;
+    }
+</style>
+                <h:form id="form1">
+                    <p:growl id="messages" showDetail="true"/>
+                    <p:panel header="Agregar Discos" style="width: 1300px;"> 
+                        <p:panelGrid columns="9" styleClass="showcase-text-align-center">
+
+
+                            <p:selectOneMenu id="genero" value="#{formDisco.idArtista}" style="width:200px">
+                                <f:selectItem itemLabel="Seleccionar Artista" itemValue="#{null}" noSelectionOption="true" />
+                                <f:selectItems value ="#{formDisco.listaArtista}" var="artista" itemValue="#{artista.id}" itemLabel="#{artista.nombre}" /> 
+                            </p:selectOneMenu> 
+
+                            <p:column>
+                                <h:outputText value = "Nombre del Disco: " />
+                            </p:column>
+                            <p:column>
+                                <p:inputText value = "#{formDisco.nombre}"/>
+                            </p:column>
+
+                            <p:column>
+                                <h:outputText value = "Fecha Lanzamiento: " />
+                            </p:column>
+                            <p:column>
+                                <p:datePicker id="popup" value = "#{formDisco.fecha}"/>
+                              <!--  <p:inputText value = "#{formDisco.fechaLanzamiento}"/>-->
+                                
+                            </p:column>
+                            
+                            <p:column>
+                                <h:outputText value = "Precio: " />
+                            </p:column>
+                            <p:column>
+                                <p:inputNumber value = "#{formDisco.precio}"/>
+                            </p:column>
+
+                            <p:commandButton value="Guardar"  ajax="true" action="#{formDisco.agregarDisco()}" style="margin-right:20px;" update=":form1:messages"  />
+                        </p:panelGrid>
+
+
+
+                    </p:panel>
+
+
+                </h:form>
+
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

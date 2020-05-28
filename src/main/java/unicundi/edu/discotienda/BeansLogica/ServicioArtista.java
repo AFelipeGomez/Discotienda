@@ -5,10 +5,7 @@
  */
 package unicundi.edu.discotienda.BeansLogica;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +17,6 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import org.primefaces.event.RowEditEvent;
 import unicundi.edu.discotienda.Model.Artista;
-import unicundi.edu.discotienda.Model.Conexion;
 
 /**
  *

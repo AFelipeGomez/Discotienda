@@ -17,7 +17,7 @@ public class Disco {
     private String fechaLanzamiento;
     private Integer precio;
     
-    public Disco(){
+    public void Disco(){
         
     }
 
@@ -27,6 +27,10 @@ public class Disco {
         this.nombre = nombre;
         this.fechaLanzamiento = fechaLanzamiento;
         this.precio = precio;
+    }
+
+    public Disco() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public Integer getId() {
