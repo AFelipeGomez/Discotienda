@@ -17,45 +17,38 @@ import java.util.logging.Logger;
  */
 public class Conexion {
 
-    private Connection conex;
-    private String url;
-    private String usuario;
-    private String calve;
+    Connection conex;
 
     public Conexion() {
-        this.url = "jdbc:mysql://localhost:8080/discotienda?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-        this.usuario = "root";
-        this.calve = "";
-        this.conex = null;
-
+        System.out.println("Entro Constructor Conexion");
     }
 
-    public void conexionDataBase() {
-
+    public void conexionDataBase() throws SQLException {
+         System.out.println("Entro metodoConexionBase");
         try {
+            String url = "jdbc:mysql://localhost:3306/discotienda";
+            String usuario = "root";
+            String clave = "";
+             System.out.println("Antes de Driver");            
             Class.forName("com.mysql.cj.jdbc.Driver");
-            try {
-                conex = DriverManager.getConnection(url, usuario, calve);
-            } catch (SQLException ex) {
-                System.out.println("Error Conexion" + ex.getMessage());
-            }
+            System.out.println("Despues de Driver");            
+            this.conex = DriverManager.getConnection(url, "root", "");            
+            System.out.println("Conexion Establecida");
         } catch (ClassNotFoundException ex) {
-            System.out.println("Erro Class" + ex.getMessage());
+            System.out.println("Error en conexion");
+            //Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
+           
+       
 
     }
 
-    public Conexion(Connection conexion) {
-
-        this.conex = conexion;
-    }
+   
 
     public Connection getConex() {
         return conex;
     }
 
-    public void setConex(Connection conex) {
-        this.conex = conex;
-    }
+   
     
 }

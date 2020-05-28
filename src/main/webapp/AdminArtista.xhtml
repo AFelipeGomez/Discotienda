@@ -3,35 +3,37 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>Artistas</title>
     </h:head>
     <h:body>
+        <ui:composition template="./TemplateAdmin.xhtml">
+            <ui:define name="content">
         <div>
             <h1>Artistas</h1>
         </div>
-        <h:form id="formulario">
+        <h:form id="form1">
+             <p:growl id="messages" showDetail="true"/>
             <h:outputText value = "Nombre: " />
             <p:inputText value = "#{formArtista.nombre}"   /> <br></br>
             <h:outputText value = "Genero Musical: " />
             <p:selectOneMenu id="genero" value="#{formArtista.generoMusical}" style="width:125px">
 
-                <f:selectItem itemValue="" itemLabel= "" />
-                <f:selectItem itemValue="electronica" itemLabel= "Electronica" />
-                <f:selectItem itemValue="rock" itemLabel= "Rock" />
-                <f:selectItem itemValue="jazz" itemLabel= "Jazz" />
-                <f:selectItem itemValue="pop" itemLabel= "Pop" />
+               <f:selectItem itemValue="" itemLabel= "" />
+                                    <f:selectItem itemValue="electronica" itemLabel= "Electronica" />
+                                    <f:selectItem itemValue="rock" itemLabel= "Rock" />
+                                    <f:selectItem itemValue="jazz" itemLabel= "Jazz" />
+                                    <f:selectItem itemValue="pop" itemLabel= "Pop" />
+                                    <f:selectItem itemValue="vallenato" itemLabel= "Vallenato" />
+                                    <f:selectItem itemValue="popular" itemLabel= "Popular" />
             </p:selectOneMenu>  
-            <p:commandButton value="Guardar"  actionListener="#{formArtista.agragarArtista()}" style="margin-right:20px;" update=":formulario"  />
-
-        </h:form>
-        <h:form id="form1">
-            <p:growl id="messages" showDetail="true"/>
-            <p:panel header="Artistas" style="width: 1300px;"> 
+            <p:commandButton value="Guardar"  actionListener="#{formArtista.agregarArtista()}" style="margin-right:20px;" update=":form1:messages"  />
+             <p:panel header="Artistas" style="width: 1300px;"> 
 
                 <p:spacer height="30px;"/>
-                <p:dataTable id="actualizar" value="" var="artista"  widgetVar="50" style="width: 1250px;" editable="true">
+                <p:dataTable id="actualizar" value="#{formArtista.listaArtista}" var="art"  widgetVar="50" style="width: 1250px;" editable="true">
 
                     <p:ajax event="rowEdit" listener="#{formArtista.editarArtista}" update=":form1:messages" />  
                     <p:ajax event="rowEditCancel" listener="#{formArtista.cancelarEdicion}" update=":form1:messages"  /> 
@@ -42,10 +44,10 @@
                         </f:facet>
                         <p:cellEditor>  
                             <f:facet name="output">  
-                                <h:outputText value="#{formArtista.nombre}" />  
+                                <h:outputText value="#{art.nombre}" />  
                             </f:facet>  
                             <f:facet name="input">  
-                                <p:inputText value="#{formArtista.nombre}" style="width:100%"/>  
+                                <p:inputText value="#{art.nombre}" style="width:100%"/>  
                             </f:facet>  
                         </p:cellEditor> 
                     </p:column>
@@ -56,10 +58,10 @@
                         </f:facet>
                         <p:cellEditor>  
                             <f:facet name="output">  
-                                <h:outputText value="#{formArtista.generoMusical}" />  
+                                <h:outputText value="#{art.generoMusical}" />  
                             </f:facet>  
                             <f:facet name="input">  
-                                <p:selectOneMenu id="genero" value="#{formArtista.generoMusical}" style="width:125px">
+                                <p:selectOneMenu id="genero" value="#{art.generoMusical}" style="width:125px">
                                     <f:selectItem itemValue="" itemLabel= "" />
                                     <f:selectItem itemValue="electronica" itemLabel= "Electronica" />
                                     <f:selectItem itemValue="rock" itemLabel= "Rock" />
@@ -83,7 +85,12 @@
 
                 </p:dataTable>
             </p:panel>
+            
+
         </h:form>
+        
+                </ui:define>
+        </ui:composition>
     </h:body>
 </html>
 

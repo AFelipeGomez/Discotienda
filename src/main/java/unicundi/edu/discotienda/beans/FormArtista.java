@@ -6,36 +6,53 @@
 package unicundi.edu.discotienda.beans;
 
 import java.io.Serializable;
-import javax.inject.Named;
-import javax.faces.view.ViewScoped;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 import org.primefaces.event.RowEditEvent;
-import unicundi.edu.discotienda.BeansLogica.ServiceArtista;
+import unicundi.edu.discotienda.BeansLogica.ServicioArtista;
+import unicundi.edu.discotienda.Model.Artista;
 
 /**
  *
  * @author PIPE
  */
 @Named(value = "formArtista")
-@ViewScoped
-public class FormArtista implements Serializable{
+@RequestScoped
+public class FormArtista implements Serializable {
+
+    private List<Artista> listaArtista;
 
     private String nombre;
     private String generoMusical;
-    private String prueba;
-            
+
     @Inject
-    private ServiceArtista service;
+    private ServicioArtista service;
+
     /**
      * Creates a new instance of FormArtista
      */
     public FormArtista() {
     }
 
-    public void agragarArtista() {
+    @PostConstruct
+    public void init() {
+       consultarArtista();
+        System.out.println("Entro init");
 
+        this.listaArtista = service.getListaArtista();
+
+    }
+
+    public void agregarArtista() {
+        System.out.println("Entro al metodo Agregar");
         service.agregarArtista(nombre, generoMusical);
-        
+
     }
 
     public void editarArtista(RowEditEvent event) {
@@ -48,6 +65,10 @@ public class FormArtista implements Serializable{
 
     public void eliminarArtista() {
 
+    }
+
+    public void consultarArtista() {
+        service.listarArtista();
     }
 
     public String getNombre() {
@@ -66,12 +87,12 @@ public class FormArtista implements Serializable{
         this.generoMusical = generoMusical;
     }
 
-    public String getPrueba() {
-        return prueba;
+    public List<Artista> getListaArtista() {
+        return listaArtista;
     }
 
-    public void setPrueba(String prueba) {
-        this.prueba = prueba;
+    public void setListaArtista(List<Artista> listaArtista) {
+        this.listaArtista = listaArtista;
     }
 
 }

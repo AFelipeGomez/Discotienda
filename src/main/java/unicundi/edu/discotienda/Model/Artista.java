@@ -17,13 +17,15 @@ public class Artista implements Serializable {
     private String nombre;
     private String generoMusical;
 
+    public Artista() {
+
+    }
+
     public Artista(Integer id, String nombre, String generoMusical) {
         this.id = id;
         this.nombre = nombre;
         this.generoMusical = generoMusical;
     }
-    
-    
 
     public String getNombre() {
         return nombre;
