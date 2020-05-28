@@ -31,12 +31,8 @@ public class ServicioSentencia implements Serializable{
      */
     public ServicioSentencia() {
        System.out.println("Entro Constructor servicioSentencia");
-    }
-    @PostConstruct
-    public void init(){
-        
-         System.out.println("Entro PostConstructor servicioSentencia");
-         try {
+       try {
+           System.out.println("Entro try catch");
             Conexion conexion = new Conexion();            
             conexion.conexionDataBase();            
             this.conex = conexion.getConex();
@@ -45,6 +41,20 @@ public class ServicioSentencia implements Serializable{
              System.out.println("Error init obtener conexion"+ex.getMessage());
             //Logger.getLogger(ServiceBd.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    @PostConstruct
+    public void init(){
+        
+         /*System.out.println("Entro PostConstructor servicioSentencia");
+         try {
+            Conexion conexion = new Conexion();            
+            conexion.conexionDataBase();            
+            this.conex = conexion.getConex();
+            System.out.println("Conexion Exitosa");
+        } catch (SQLException ex) {
+             System.out.println("Error init obtener conexion"+ex.getMessage());
+            //Logger.getLogger(ServiceBd.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
         
     }
     

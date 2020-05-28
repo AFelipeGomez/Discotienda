@@ -73,16 +73,9 @@ public class ServicioArtista {
        
 //Conexion
         try {
-            System.out.println("Inicio pasos conexiobn");
-            String url = "jdbc:mysql://localhost:3306/discotienda";
-            String usuario = "root";
-            String clave = "";
             
-            Class.forName("com.mysql.cj.jdbc.Driver");            
-            Connection conex = DriverManager.getConnection(url, "root", "");
-            System.out.println("Conexion Establecida");       //conexion
 
-            Statement st = conex.createStatement();
+            Statement st = service.conex.createStatement();
             String sql = "SELECT id, nombre, generoMusical  FROM artista";
             System.out.println("Sql "+sql);
             ResultSet result = st.executeQuery(sql);

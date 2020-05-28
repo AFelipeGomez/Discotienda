@@ -16,24 +16,38 @@
         </div>
         <h:form id="form1">
              <p:growl id="messages" showDetail="true"/>
-            <h:outputText value = "Nombre: " />
-            <p:inputText value = "#{formArtista.nombre}"   /> <br></br>
-            <h:outputText value = "Genero Musical: " />
-            <p:selectOneMenu id="genero" value="#{formArtista.generoMusical}" style="width:125px">
+            <p:panel header="Agregar Artistas" style="width: 1300px;"> 
+                        <p:panelGrid columns="5" styleClass="showcase-text-align-center">
+                            <p:column>
+                                <h:outputText value = "Nombre: " />
+                            </p:column>
+                            <p:column>
+                                <p:inputText value = "#{formArtista.nombre}"/>
+                            </p:column>
+                            <p:column>
+                                <h:outputText value = "Genero Musical: " />
+                            </p:column>
+                            
+                            <p:selectOneMenu id="genero" value="#{formArtista.generoMusical}" style="width:125px">
+                                <f:selectItem itemValue="" itemLabel= "" />
+                                <f:selectItem itemValue="electronica" itemLabel= "Electronica" />
+                                <f:selectItem itemValue="rock" itemLabel= "Rock" />
+                                <f:selectItem itemValue="jazz" itemLabel= "Jazz" />
+                                <f:selectItem itemValue="pop" itemLabel= "Pop" />
+                                <f:selectItem itemValue="vallenato" itemLabel= "Vallenato" />
+                                <f:selectItem itemValue="popular" itemLabel= "Popular" />
+                            </p:selectOneMenu>  
+                            <p:commandButton value="Guardar"  ajax="true" action="#{formArtista.agregarArtista()}" style="margin-right:20px;" update=":form1:messages"  />
+                        </p:panelGrid>
+                    </p:panel>
+                    
 
-               <f:selectItem itemValue="" itemLabel= "" />
-                                    <f:selectItem itemValue="electronica" itemLabel= "Electronica" />
-                                    <f:selectItem itemValue="rock" itemLabel= "Rock" />
-                                    <f:selectItem itemValue="jazz" itemLabel= "Jazz" />
-                                    <f:selectItem itemValue="pop" itemLabel= "Pop" />
-                                    <f:selectItem itemValue="vallenato" itemLabel= "Vallenato" />
-                                    <f:selectItem itemValue="popular" itemLabel= "Popular" />
-            </p:selectOneMenu>  
-            <p:commandButton value="Guardar"  actionListener="#{formArtista.agregarArtista()}" style="margin-right:20px;" update=":form1:messages"  />
-             <p:panel header="Artistas" style="width: 1300px;"> 
-
-                <p:spacer height="30px;"/>
-                <p:dataTable id="actualizar" value="#{formArtista.listaArtista}" var="art"  widgetVar="50" style="width: 1250px;" editable="true">
+                        <p:spacer height="10px;"/>
+                <p:dataTable id="actualizar" value="#{formArtista.listaArtista}" var="art"  widgetVar="50" style="width: 1250px;" editable="true"
+                                     paginator="true"         
+                                     rows="5"                                     
+                                     paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros">
 
                     <p:ajax event="rowEdit" listener="#{formArtista.editarArtista}" update=":form1:messages" />  
                     <p:ajax event="rowEditCancel" listener="#{formArtista.cancelarEdicion}" update=":form1:messages"  /> 
@@ -84,7 +98,7 @@
                     </p:column>
 
                 </p:dataTable>
-            </p:panel>
+            
             
 
         </h:form>

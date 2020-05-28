@@ -78,7 +78,7 @@
     color: #7405FF;
     font-weight: bold;
 }
-#bottom {
+/*#bottom {
     position: fixed;
     text-align: center;
     background-color: #7356F6;
@@ -92,6 +92,23 @@
     color: #fff;
     font-family: 'Poiret One', cursive;
     line-height: 25px;
+
+}*/
+#bottom {
+    position: fixed;
+    text-align: center;
+    background-color: #7356F6;
+    bottom: 0px;
+    width: 100%;
+    height: 60px;
+}
+
+#bottom h{
+    font-size: 14px;
+    color: #fff;
+    font-family: 'Poiret One', cursive;
+    margin-top: 5px;
+    line-height: 20px;
 
 }
 
