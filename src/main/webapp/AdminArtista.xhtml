@@ -52,7 +52,7 @@
                     <p:ajax event="rowEdit" listener="#{formArtista.editarArtista}" update=":form1:messages" />  
                     <p:ajax event="rowEditCancel" listener="#{formArtista.cancelarEdicion}" update=":form1:messages"  /> 
 
-                    <p:column>
+                    <p:column filterBy="#{art.nombre}" headerText="Nombre" filterMatchMode="contains" sortBy="#{art.nombre}">
                         <f:facet name="header">  
                             <h:outputText value="Nombre" />  
                         </f:facet>
@@ -66,7 +66,7 @@
                         </p:cellEditor> 
                     </p:column>
 
-                    <p:column>
+                    <p:column filterBy="#{art.generoMusical}" headerText="Nombre" filterMatchMode="contains" sortBy="#{art.generoMusical}">
                         <f:facet name="header">  
                             <h:outputText value="Genero" />  
                         </f:facet>
@@ -83,7 +83,7 @@
                                     <f:selectItem itemValue="pop" itemLabel= "Pop" />
                                     <f:selectItem itemValue="vallenato" itemLabel= "Vallenato" />
                                     <f:selectItem itemValue="popular" itemLabel= "Popular" />
-                                </p:selectOneMenu>  
+                                </p:selectOneMenu>                            
                             </f:facet>  
                         </p:cellEditor>
                     </p:column>
