@@ -16,6 +16,10 @@ public class Disco {
     private String nombre;
     private String fechaLanzamiento;
     private Integer precio;
+    
+    public Disco(){
+        
+    }
 
     public Disco(Integer id, Integer idArtista, String nombre, String fechaLanzamiento, Integer precio) {
         this.id = id;
