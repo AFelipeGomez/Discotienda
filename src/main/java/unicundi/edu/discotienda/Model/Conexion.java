@@ -26,7 +26,7 @@ public class Conexion {
     public void conexionDataBase() throws SQLException {
          System.out.println("Entro metodoConexionBase");
         try {
-            String url = "jdbc:mysql://localhost:3306/discotienda";
+            String url = "jdbc:mysql://localhost:3306/discotienda?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
             String usuario = "root";
             String clave = "";
              System.out.println("Antes de Driver");            
