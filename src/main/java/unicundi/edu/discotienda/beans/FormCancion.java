@@ -22,7 +22,9 @@ import unicundi.edu.discotienda.Model.Disco;
  */
 @Named(value = "formCancion")
 @RequestScoped
-public class FormCancion implements Serializable {
+public class FormCancion implements Serializable{ 
+        
+    private String disco="xx";
     private String nombre;
     private String duracion;
     private String formato;
@@ -115,7 +117,16 @@ public class FormCancion implements Serializable {
     public void setService(ServicioCancion service) {
         this.service = service;
     }
-            
+
+    public String getDisco() {
+        return disco;
+    }
+
+    public void setDisco(String disco) {
+        this.disco = disco;
+    }
+           
+    
             
     
     

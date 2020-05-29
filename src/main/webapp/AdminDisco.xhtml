@@ -16,47 +16,47 @@
                     <h1>Discos</h1>
                 </div>
                 <script type="text/javascript">
-       PrimeFaces.locales ['de'] = {
-        closeText: 'Schließen',
-        prevText: 'Zurück',
-        nextText: 'Weiter',
-        monthNames: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember' ],
-        monthNamesShort: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez' ],
-        dayNames: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
-        dayNamesShort: ['Son', 'Mon', 'Die', 'Mit', 'Don', 'Fre', 'Sam'],
-        dayNamesMin: ['S', 'M', 'D', 'M ', 'D', 'F ', 'S'],
-        weekHeader: 'Woche',
-        firstDay: 1,
-        isRTL: false,
-        showMonthAfterYear: false,
-        yearSuffix:'',
-        timeOnlyTitle: 'Nur Zeit',
-        timeText: 'Zeit',
-        hourText: 'Stunde',
-        minuteText: 'Minute',
-        secondText: 'Sekunde',
-        currentText: 'Aktuelles Datum',
-        ampm: false,
-        month: 'Monat',
-        week: 'Woche',
-        day: 'Tag',
-        allDayText: 'Ganzer Tag'
-    };
-</script>
- 
-<script type="text/javascript">
-    //<![CDATA[
-    function dateTemplateFunc(date) {
-        return '<span style="background-color:' + ((date.day < 21 && date.day > 10) ? '#81C784' : 'inherit') + ';border-radius:50%;padding: .25em;width: 1.75em; height:1.75em; display:block;">' + date.day + '</span>';
-    }
-    //]]>
-</script>
- 
-<style type="text/css">
-    .value {
-        font-weight: bold;
-    }
-</style>
+                    PrimeFaces.locales ['de'] = {
+                        closeText: 'Schließen',
+                        prevText: 'Zurück',
+                        nextText: 'Weiter',
+                        monthNames: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
+                        monthNamesShort: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'],
+                        dayNames: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
+                        dayNamesShort: ['Son', 'Mon', 'Die', 'Mit', 'Don', 'Fre', 'Sam'],
+                        dayNamesMin: ['S', 'M', 'D', 'M ', 'D', 'F ', 'S'],
+                        weekHeader: 'Woche',
+                        firstDay: 1,
+                        isRTL: false,
+                        showMonthAfterYear: false,
+                        yearSuffix: '',
+                        timeOnlyTitle: 'Nur Zeit',
+                        timeText: 'Zeit',
+                        hourText: 'Stunde',
+                        minuteText: 'Minute',
+                        secondText: 'Sekunde',
+                        currentText: 'Aktuelles Datum',
+                        ampm: false,
+                        month: 'Monat',
+                        week: 'Woche',
+                        day: 'Tag',
+                        allDayText: 'Ganzer Tag'
+                    };
+                </script>
+
+                <script type="text/javascript">
+                    //<![CDATA[
+                    function dateTemplateFunc(date) {
+                        return '<span style="background-color:' + ((date.day < 21 && date.day > 10) ? '#81C784' : 'inherit') + ';border-radius:50%;padding: .25em;width: 1.75em; height:1.75em; display:block;">' + date.day + '</span>';
+                    }
+                    //]]>
+                </script>
+
+                <style type="text/css">
+                    .value {
+                        font-weight: bold;
+                    }
+                </style>
                 <h:form id="form1">
                     <p:growl id="messages" showDetail="true"/>
                     <p:panel header="Agregar Discos" style="width: 1300px;"> 
@@ -81,9 +81,9 @@
                             <p:column>
                                 <p:datePicker id="popup" value = "#{formDisco.fecha}"/>
                               <!--  <p:inputText value = "#{formDisco.fechaLanzamiento}"/>-->
-                                
+
                             </p:column>
-                            
+
                             <p:column>
                                 <h:outputText value = "Precio: " />
                             </p:column>
@@ -94,7 +94,89 @@
                             <p:commandButton value="Guardar"  ajax="true" action="#{formDisco.agregarDisco()}" style="margin-right:20px;" update=":form1:messages"  />
                         </p:panelGrid>
 
+                        <p:dataTable id="actualizar" value="#{formDisco.listaDisco}" var="disc"  widgetVar="50" style="width: 1250px;" editable="true"
+                                     paginator="true"         
+                                     rows="5"                                     
+                                     paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros">
 
+                            <p:ajax event="rowEdit" listener="#{formDisco.editarDisco}" update=":form1:messages" />  
+                            <p:ajax event="rowEditCancel" listener="#{formDisco.cancelarEdicion}" update=":form1:messages"  /> 
+
+                            <p:column filterBy="#{disc.nombre}" headerText="Nombre" filterMatchMode="contains" sortBy="#{disc.nombre}">
+                                <f:facet name="header">  
+                                    <h:outputText value="Nombre" />  
+                                </f:facet>
+                                <p:cellEditor>  
+                                    <f:facet name="output">  
+                                        <h:outputText value="#{disc.nombre}" />  
+                                    </f:facet>  
+                                    <f:facet name="input">  
+                                        <p:inputText value="#{disc.nombre}" style="width:100%"/>  
+                                    </f:facet>  
+                                </p:cellEditor> 
+                            </p:column>
+                            
+                            <p:column filterBy="#{disc.nombreArtista}" headerText="Artista" filterMatchMode="contains" sortBy="#{disc.nombreArtista}">
+                                <f:facet name="header">  
+                                    <h:outputText value="Artista" />  
+                                </f:facet>
+                                <p:cellEditor>  
+                                    <f:facet name="output">  
+                                        <h:outputText value="#{disc.nombreArtista}" />  
+                                    </f:facet>  
+                                    <f:facet name="input">  
+                                        <p:inputText value="#{disc.nombreArtista}" style="width:100%"/>  
+                                    </f:facet>  
+                                </p:cellEditor> 
+                            </p:column>
+                            
+                            <p:column  headerText="Fecha Lanzamiento"  sortBy="#{disc.fechaLanzamiento}">
+                                <f:facet name="header">  
+                                    <h:outputText value="Fecha Lanzamiento" />  
+                                </f:facet>
+                                <p:cellEditor>  
+                                    <f:facet name="output">  
+                                        <h:outputText value="#{disc.fechaLanzamiento}" />  
+                                    </f:facet>  
+                                    <f:facet name="input">  
+                                        <p:inputText value="#{disc.fechaLanzamiento}" style="width:100%"/>  
+                                    </f:facet>  
+                                </p:cellEditor> 
+                            </p:column>
+                            <p:column filterBy="#{disc.precio}" headerText="Precio" filterMatchMode="contains" sortBy="#{disc.precio}">
+                                <f:facet name="header">  
+                                    <h:outputText value="Precio" />  
+                                </f:facet>
+                                <p:cellEditor>  
+                                    <f:facet name="output">  
+                                        <h:outputText value="#{disc.precio}" />  
+                                    </f:facet>  
+                                    <f:facet name="input">  
+                                        <p:inputText value="#{disc.precio}" style="width:100%"/>  
+                                    </f:facet>  
+                                </p:cellEditor> 
+                            </p:column>
+
+                            
+                            <p:column headerText="Acciones" style="width:100px">  
+                                <p:rowEditor />  
+                            </p:column>
+                            <p:column headerText="Acciones">                          
+                                <f:facet name="Eliminar"/>  
+                                <p:commandButton  ajax="true" action="#{formDisco.eliminarDisco(disc)}" update=":form1" style="margin-right:50px;" value="Eliminar">
+
+                                </p:commandButton>
+                            </p:column>
+                            
+                            <p:column headerText="Agregar Canciones">                          
+                                <f:facet name="+ Cancion"/>  
+                                <p:commandButton  ajax="true" action="#{formDisco.agregarCanciones()}" update=":form1" style="margin-right:50px;" value="+ Canciones">
+
+                                </p:commandButton>
+                            </p:column>
+
+                        </p:dataTable>
 
                     </p:panel>
 

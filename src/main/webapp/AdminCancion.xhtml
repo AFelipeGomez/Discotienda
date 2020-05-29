@@ -16,7 +16,18 @@
                 </div>
                 <h:form id="form1">
                     <p:growl id="messages" showDetail="true"/>
+
                     <p:panel header="Agregar Canciones" style="width: 1300px;"> 
+
+                        <p:column>
+                            <h:outputText value = "Disco: " />
+                        </p:column>
+                        
+                         <p:column>
+                             <h:outputText value = "#{formCancion.disco}" />
+                        </p:column>
+
+                        
                         <p:panelGrid columns="5" styleClass="showcase-text-align-center">
                             <p:column>
                                 <h:outputText value = "Nombre: " />
@@ -31,7 +42,7 @@
                                 <h:outputText value = "precio: " />
                             </p:column>
                             <p:column>
-                               
+
                             </p:column>  
 
                             <p:column>
@@ -47,11 +58,11 @@
                                 <p:inputText value = "#{formCancion.formato}"/>
                             </p:column>
 
-                                
+
                             <p:column>
                                 <p:inputText id="precio" value = "#{formCancion.precio}"/>
                             </p:column>      
-                            
+
 
 
                             <p:column>

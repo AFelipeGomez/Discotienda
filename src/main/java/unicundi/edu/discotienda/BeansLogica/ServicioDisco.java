@@ -16,9 +16,9 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import org.primefaces.event.RowEditEvent;
 import unicundi.edu.discotienda.Model.Artista;
 import unicundi.edu.discotienda.Model.Disco;
-
 
 /**
  *
@@ -31,7 +31,7 @@ public class ServicioDisco {
     private Integer id;
     private List<Disco> listaDisco;
     private List<Artista> listaArtista;
-    
+
     @Inject
     private ServicioSentencia service;
 
@@ -49,15 +49,13 @@ public class ServicioDisco {
 
     public void agregarDisco(Integer idArtista, String nombre, String fechaLanzamiento, Integer precio) {
 
-        System.out.println("Entro agregar Disco ServicioDsco");        
-        Disco disco = new Disco();        
+        System.out.println("Entro agregar Disco ServicioDsco");
+        Disco disco = new Disco();
         disco.setIdArtista(idArtista);
         disco.setNombre(nombre);
-        disco.setNombre(fechaLanzamiento);
+        disco.setFechaLanzamiento(fechaLanzamiento);
         disco.setPrecio(precio);
-        
-
-        String sql = "INSERT INTO disco (idArtista,nombre,fechaLanzamiento,precio) VALUES('" + disco.getIdArtista() + "','" + disco.getNombre()+ "','" + disco.getFechaLanzamiento() + "','" + disco.getPrecio() + "')";
+        String sql = "INSERT INTO disco (idArtista,nombre,fechaLanzamiento,precio) VALUES('" + disco.getIdArtista() + "','" + disco.getNombre() + "','" + disco.getFechaLanzamiento() + "','" + disco.getPrecio() + "')";
 
         System.out.println("idArtista" + disco.getNombre());
         System.out.println("Sentencia" + sql);
@@ -69,43 +67,50 @@ public class ServicioDisco {
     }
 
     public void listarDisco() {
-        System.out.println("Entro listar");
+        System.out.println("Entro listar Disco");
         listaDisco = new ArrayList<>();
 
         try {
 
             Statement st = service.conex.createStatement();
-            String sql = "SELECT id, idArtista, nombre, fechaLanzamiento, precio  FROM disco";
+            String sql = "SELECT disco.id,disco.idArtista,disco.nombre,disco.fechaLanzamiento,disco.precio,artista.nombre AS nombreartista"
+                    + " FROM disco "
+                    + "INNER JOIN artista ON disco.idArtista=artista.id;";
             System.out.println("Sql " + sql);
             ResultSet result = st.executeQuery(sql);
             while (result.next()) {
                 System.out.println("Entro a lista");
-                int id = Integer.parseInt(result.getString("id"));
-                int idArtista = Integer.parseInt(result.getString("idArtista"));
-                int precio = Integer.parseInt(result.getString("precio"));
- 
-                listaDisco.add(new Disco(id, idArtista, result.getString("nombre"),result.getString("fechaLanzamiento"), precio));
+                listaDisco.add(new Disco(result.getInt("id"), result.getInt("idArtista"), result.getString("nombre"), result.getString("fechaLanzamiento"), result.getInt("precio"),result.getString("nombreartista")));
             }
         } catch (Exception e) {
-            System.out.println("Entro excepcion metodo listar");
+            System.out.println("Entro excepcion metodo listar"+e.getMessage());
         }
     }
     
-    public void listarArtista() throws SQLException {
-        listaArtista = new ArrayList<>();
-        Statement st = service.conex.createStatement();
-        try {
-            String sql = "SELECT id , nombre, generoMusical FROM artista";
-            ResultSet result = st.executeQuery(sql);
-            while (result.next()) {
-                System.out.println("Entro a lista de artistas");
-                int id = Integer.parseInt(result.getString("id"));
-                listaArtista.add(new Artista(id, result.getString("nombre"), result.getString("generoMusical")));
-            }
-        } catch (Exception e) {
+     public void actualizarDisco(RowEditEvent event){
+       System.out.println("Entro metodo actualizacion");
+       Disco disco = (Disco) event.getObject();                    
+        String Sql = "UPDATE disco SET nombre='"+disco.getNombre()+"',fechaLanzamiento='"+disco.getFechaLanzamiento()+"',precio='"+disco.getPrecio()+"' WHERE id="+disco.getId()+";";
+        System.out.println("Sql"+Sql); 
+        service.transaccionesSql(Sql);        
+        FacesMessage message = new FacesMessage("Actualizo Artista " + disco.getNombre());
+        FacesContext.getCurrentInstance().addMessage(null, message);
 
-        }
+        
     }
+     
+    public void eliminarDisco(Disco disco){
+       System.out.println("Entro metodo eliminar");
+       Disco discos=disco;
+       
+        String Sql = "DELETE FROM disco WHERE id" + "=" + discos.getId() + ";";
+        System.out.println("Sql delete"+Sql);
+        service.transaccionesSql(Sql);    
+        FacesMessage message = new FacesMessage("Se Elimino el disco: " + discos.getNombre());        
+        FacesContext.getCurrentInstance().addMessage(null, message);
+        
+        
+   }
 
     public List<Disco> getListaDisco() {
         return listaDisco;
@@ -122,7 +127,5 @@ public class ServicioDisco {
     public void setListaArtista(List<Artista> listaArtista) {
         this.listaArtista = listaArtista;
     }
-    
-   
 
 }

@@ -16,8 +16,9 @@ public class Disco {
     private String nombre;
     private String fechaLanzamiento;
     private Integer precio;
+    private String nombreArtista;
     
-    public void Disco(){
+    public Disco(){
         
     }
 
@@ -29,9 +30,18 @@ public class Disco {
         this.precio = precio;
     }
 
-    public Disco() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Disco(Integer id, Integer idArtista, String nombre, String fechaLanzamiento, Integer precio, String nombreArtista) {
+        this.id = id;
+        this.idArtista = idArtista;
+        this.nombre = nombre;
+        this.fechaLanzamiento = fechaLanzamiento;
+        this.precio = precio;
+        this.nombreArtista = nombreArtista;
     }
+    
+    
+
+   
 
     public Integer getId() {
         return id;
@@ -71,6 +81,14 @@ public class Disco {
 
     public void setPrecio(Integer precio) {
         this.precio = precio;
+    }
+
+    public String getNombreArtista() {
+        return nombreArtista;
+    }
+
+    public void setNombreArtista(String nombreArtista) {
+        this.nombreArtista = nombreArtista;
     }
     
     

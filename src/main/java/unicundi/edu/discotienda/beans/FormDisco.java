@@ -5,11 +5,14 @@
  */
 package unicundi.edu.discotienda.beans;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
@@ -56,7 +59,8 @@ public class FormDisco implements Serializable {
 
     @PostConstruct
     public void init() {
-        //consultarDisco();
+        consultarDisco();
+        this.listaDisco = service.getListaDisco();
         artista = new Artista();
         System.out.println("Entro init");
         consultarArtista();
@@ -66,7 +70,7 @@ public class FormDisco implements Serializable {
         
         System.out.println("Listo Artistas");
 
-        //this.listaDisco = service.getListaDisco();
+        
     }
 
     public void agregarDisco() {
@@ -75,7 +79,7 @@ public class FormDisco implements Serializable {
     }
 
     public void editarDisco(RowEditEvent event) {
-        //service.actualizarDisco(event);
+        service.actualizarDisco(event);
 
     }
 
@@ -86,11 +90,12 @@ public class FormDisco implements Serializable {
 
     public void eliminarDisco(Disco disco) {
         System.out.println("Entro metodoeliminar");
-        //service.eliminarDisco(disco);
+        service.eliminarDisco(disco);
 
     }
 
     public void consultarDisco() {
+        System.out.println("Entro Consulta Disco");
         service.listarDisco();
     }
 
@@ -98,6 +103,14 @@ public class FormDisco implements Serializable {
         System.out.println("entro método consultar");
         serviceArtista.listarArtista();
 
+    }
+    
+    public void agregarCanciones(){
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("faces/AdminCancion.xhtml");
+        } catch (IOException ex) {
+            Logger.getLogger(FormDisco.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public List<Disco> getListaDisco() {
