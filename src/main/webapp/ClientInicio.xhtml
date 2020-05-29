@@ -1,17 +1,57 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <body>
+    <h:body>
 
         <ui:composition template="./TemplateInicio.xhtml">
-
             <ui:define name="content">
-                content
-            </ui:define>
+                <h:form id="form1">
+                    <p:growl id="messages" showDetail="true"/>
+                    <p:panel header="Lista de Albums" style="width: 1300px;"> 
+                        <p:spacer height="10px;"/>
+                        <p:dataTable id="actualizar" value="#{formDisco.listaDisco}" var="disc"  widgetVar="50" style="width: 1250px;" editable="true"
+                                     paginator="true"         
+                                     rows="5"                                     
+                                     paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros">
 
+                            <p:column filterBy="#{disc.nombre}" headerText="Nombre del Disco " filterMatchMode="contains" sortBy="#{disc.nombre}">
+                                <h:outputText value="#{disc.nombre}" /> 
+                            </p:column>  
+                            
+                           <p:column filterBy="#{disc.nombreArtista}" headerText="Artista" filterMatchMode="contains" sortBy="#{disc.nombreArtista}">
+                                <h:outputText value="#{disc.nombreArtista}" />  
+                            </p:column>
+                            <p:column  headerText="Fecha Lanzamiento"  sortBy="#{disc.fechaLanzamiento}">
+                                <h:outputText value="#{disc.fechaLanzamiento}" /> 
+                            </p:column>
+                            <p:column filterBy="#{disc.precio}" headerText="Precio" filterMatchMode="contains" sortBy="#{disc.precio}">
+                                <h:outputText value="#{disc.precio}" />  
+                            </p:column>
+                            <p:column headerText="Ver Canciones">                          
+                                <f:facet name="Ver Canciones"/>  
+                                <p:commandButton  ajax="true" action="#" update=":form1" style="margin-right:50px;" value="canciones" icon="pi pi-eye">
+
+                                </p:commandButton>
+                            </p:column>
+
+                            <p:column headerText="Agregar Al carrito">                          
+                                <f:facet name="+ Cancion"/>  
+                                <p:commandButton  ajax="true" action="#" update=":form1" style="margin-right:50px;"  value="Agregar " icon="pi pi-shopping-cart">
+
+                                </p:commandButton>
+                            </p:column>
+
+                        </p:dataTable>
+                    </p:panel>
+                </h:form>
+            </ui:define>
         </ui:composition>
 
-    </body>
+    </h:body>
 </html>

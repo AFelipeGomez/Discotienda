@@ -1,12 +1,38 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@200" rel="stylesheet"></link> 
+        <link href="https://fonts.googleapis.com/css2?family=Poiret+One" rel="stylesheet"></link>
+    <style type="text/css">
+            .ui-g-4 div {
+                font-size: 90px;
+                margin-top: 150px;
+                font-weight: bold;
+                
+            }
+            h3{
+                font-size: 90px;
+                font-family: 'Tajawal', sans-serif;
+                margin-top: 150px;
+                font-weight: bold;
+            }
+            
+            .ui-g-4 {
+                margin-top: 150px;
+            }
+        </style>
     <body>
         <ui:composition template="./TemplateAdmin.xhtml">
             <ui:define name="content">
-                content
+                <p:panelGrid>
+                    <div class="ui-g" style="margin-top:150px;">
+                        <div class="ui-g-4" style=" text-align: right; font-weight: bold; font-size: 30px; font-family: 'Tajawal', sans-serif;"><h3>¡Bienvenido</h3></div>
+                        <div class="ui-g-4" style="margin-right:-400px;" ><img src="images/hola.png" width="50%" /></div>
+                        <div class="ui-g-4" style="text-align: right; font-weight: bold; font-size: 30px; font-family: 'Tajawal', sans-serif;"><h3>Administrador!</h3></div>
+                    </div>
+                </p:panelGrid>
             </ui:define>
         </ui:composition>
 

@@ -63,7 +63,7 @@
                         <p:panelGrid columns="9" styleClass="showcase-text-align-center">
 
 
-                            <p:selectOneMenu id="genero" value="#{formDisco.idArtista}" style="width:200px">
+                            <p:selectOneMenu id="genero" value="#{formDisco.idArtista}" style="width:200px" required="true">
                                 <f:selectItem itemLabel="Seleccionar Artista" itemValue="#{null}" noSelectionOption="true" />
                                 <f:selectItems value ="#{formDisco.listaArtista}" var="artista" itemValue="#{artista.id}" itemLabel="#{artista.nombre}" /> 
                             </p:selectOneMenu> 
@@ -72,15 +72,19 @@
                                 <h:outputText value = "Nombre del Disco: " />
                             </p:column>
                             <p:column>
-                                <p:inputText value = "#{formDisco.nombre}"/>
+                                <p:inputText value = "#{formDisco.nombre}" required="true">
+                                    <f:validateRequired/>
+                                </p:inputText>
                             </p:column>
 
                             <p:column>
                                 <h:outputText value = "Fecha Lanzamiento: " />
                             </p:column>
                             <p:column>
-                                <p:datePicker id="popup" value = "#{formDisco.fecha}"/>
-                              <!--  <p:inputText value = "#{formDisco.fechaLanzamiento}"/>-->
+                                <p:datePicker id="popup" value = "#{formDisco.fecha}" required="true">
+                                </p:datePicker>
+                                    
+                             <!--  <p:inputText value = "#{formDisco.fechaLanzamiento}"/>-->
 
                             </p:column>
 
@@ -88,10 +92,12 @@
                                 <h:outputText value = "Precio: " />
                             </p:column>
                             <p:column>
-                                <p:inputNumber value = "#{formDisco.precio}"/>
+                                <p:inputText type="number" value = "#{formDisco.precio}" required="true" validatorMessage="No se permiten valores negativos" >
+                                    <f:validateLongRange minimum="0" maximum="1000000"/>    
+                                </p:inputText>
                             </p:column>
 
-                            <p:commandButton value="Guardar"  ajax="true" action="#{formDisco.agregarDisco()}" style="margin-right:20px;" update=":form1:messages"  />
+                            <p:commandButton value="Guardar"  icon="pi pi-save" ajax="true" action="#{formDisco.agregarDisco()}" style="margin-right:20px;" update=":form1:messages"  />
                         </p:panelGrid>
 
                         <p:dataTable id="actualizar" value="#{formDisco.listaDisco}" var="disc"  widgetVar="50" style="width: 1250px;" editable="true"
@@ -164,14 +170,7 @@
                             </p:column>
                             <p:column headerText="Acciones">                          
                                 <f:facet name="Eliminar"/>  
-                                <p:commandButton  ajax="true" action="#{formDisco.eliminarDisco(disc)}" update=":form1" style="margin-right:50px;" value="Eliminar">
-
-                                </p:commandButton>
-                            </p:column>
-                            
-                            <p:column headerText="Agregar Canciones">                          
-                                <f:facet name="+ Cancion"/>  
-                                <p:commandButton  ajax="true" action="#{formDisco.agregarCanciones()}" update=":form1" style="margin-right:50px;" value="+ Canciones">
+                                <p:commandButton  ajax="true" action="#{formDisco.eliminarDisco(disc)}" update=":form1" icon="pi pi-trash" style="margin-right:50px;" value="Eliminar">
 
                                 </p:commandButton>
                             </p:column>

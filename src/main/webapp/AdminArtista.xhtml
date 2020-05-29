@@ -22,14 +22,14 @@
                                 <h:outputText value = "Nombre: " />
                             </p:column>
                             <p:column>
-                                <p:inputText value = "#{formArtista.nombre}"/>
+                                <p:inputText value = "#{formArtista.nombre}" required="true"/>
                             </p:column>
                             <p:column>
                                 <h:outputText value = "Genero Musical: " />
                             </p:column>
 
-                            <p:selectOneMenu id="genero" value="#{formArtista.generoMusical}" style="width:125px">
-                                <f:selectItem itemValue="" itemLabel= "" />
+                            <p:selectOneMenu id="genero" value="#{formArtista.generoMusical}" style="width:200px" required="true">
+                                <f:selectItem itemLabel="Seleccionar Genero" itemValue="#{null}" noSelectionOption="true" />
                                 <f:selectItem itemValue="electronica" itemLabel= "Electronica" />
                                 <f:selectItem itemValue="rock" itemLabel= "Rock" />
                                 <f:selectItem itemValue="jazz" itemLabel= "Jazz" />
@@ -37,7 +37,7 @@
                                 <f:selectItem itemValue="vallenato" itemLabel= "Vallenato" />
                                 <f:selectItem itemValue="popular" itemLabel= "Popular" />
                             </p:selectOneMenu>  
-                            <p:commandButton value="Guardar"  ajax="true" action="#{formArtista.agregarArtista()}" style="margin-right:20px;" update=":form1:messages"  />
+                            <p:commandButton value="Guardar" icon="pi pi-save" ajax="true" action="#{formArtista.agregarArtista()}" style="margin-right:20px;" update=":form1:messages"  />
                         </p:panelGrid>
 
 
@@ -92,7 +92,7 @@
                             </p:column>
                             <p:column headerText="Acciones">                          
                                 <f:facet name="Eliminar"/>  
-                                <p:commandButton  ajax="true" action="#{formArtista.eliminarArtista(art)}" update=":form1" style="margin-right:50px;" value="Eliminar">
+                                <p:commandButton  ajax="true" action="#{formArtista.eliminarArtista(art)}" icon="pi pi-trash" update=":form1" style="margin-right:50px;" value="Eliminar">
 
                                 </p:commandButton>
                             </p:column>

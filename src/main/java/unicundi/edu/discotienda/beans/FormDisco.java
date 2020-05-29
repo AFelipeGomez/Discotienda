@@ -105,13 +105,7 @@ public class FormDisco implements Serializable {
 
     }
     
-    public void agregarCanciones(){
-        try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("faces/AdminCancion.xhtml");
-        } catch (IOException ex) {
-            Logger.getLogger(FormDisco.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+    
 
     public List<Disco> getListaDisco() {
         return listaDisco;
