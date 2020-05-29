@@ -9,12 +9,18 @@ import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
+import org.primefaces.event.RowEditEvent;
+import unicundi.edu.discotienda.BeansLogica.ServicioDisco;
 import unicundi.edu.discotienda.BeansLogica.ServicioCancion;
 import unicundi.edu.discotienda.Model.Artista;
 import unicundi.edu.discotienda.Model.Disco;
+import unicundi.edu.discotienda.Model.Cancion;
+
 
 /**
  *
@@ -24,42 +30,79 @@ import unicundi.edu.discotienda.Model.Disco;
 @RequestScoped
 public class FormCancion implements Serializable{ 
         
-    private String disco="xx";
+    private String discos;
+    private Integer idDisco;
+    private Integer idArtista;
     private String nombre;
     private String duracion;
     private String formato;
-    private String precio;
+    private Integer precio;
     List<Disco> listaDisco;
-    List<Artista> listaArtista;
+    List<Cancion> listaCanciones;
+    private Disco disco;
+    
     @Inject
     private ServicioCancion service;
+    
+    @Inject
+    private ServicioDisco servicio;
+    
+   
     /**
      * Creates a new instance of FormCancion
      */
     public FormCancion() {
-        
+         System.out.println("Inicio constructor FormCancion");
     }
     
     @PostConstruct
     public void ini(){
+        consultarCanciones();
+        this.listaCanciones=service.getListCancion();
+        disco = new Disco();
+        consultarDisco();
+        this.listaDisco=servicio.getListaDisco();
+        
+        
+        
+        System.out.println("Inicio init FormCancion");
+        
         
     }
     
     
     public void agregarCancion(){
+        System.out.println("Entro metodo Agregar Cancion");
+        System.out.println("idDisco"+idDisco);
+        service.agregarCancion(idDisco,nombre,duracion,formato,precio);
+        
     
     }
     
     public void listarCancion(){
+        service.listarCancion();
         
     }
     
-    public void actualizarCancion(){
+    public void actualizarCancion(RowEditEvent event){
+        service.actualizarCancion(event);
+    }
+    public void cancelarActualizacion(RowEditEvent event){
+         FacesMessage msg = new FacesMessage("Edicion Cancelada");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
         
     }
     
-    public void eliminarCancion(){
+    public void eliminarCancion(Cancion cancion){
+        service.eliminarCancion(cancion);
         
+    }
+    
+    public void consultarDisco(){
+        servicio.listarDisco();
+    }
+    public void consultarCanciones(){
+       service.listarCancion();
     }
 
     public String getNombre() {
@@ -86,13 +129,15 @@ public class FormCancion implements Serializable{
         this.formato = formato;
     }
 
-    public String getPrecio() {
+    public Integer getPrecio() {
         return precio;
     }
 
-    public void setPrecio(String precio) {
+    public void setPrecio(Integer precio) {
         this.precio = precio;
     }
+
+   
 
     public List<Disco> getListaDisco() {
         return listaDisco;
@@ -102,13 +147,15 @@ public class FormCancion implements Serializable{
         this.listaDisco = listaDisco;
     }
 
-    public List<Artista> getListaArtista() {
-        return listaArtista;
+    public List<Cancion> getListaCanciones() {
+        return listaCanciones;
     }
 
-    public void setListaArtista(List<Artista> listaArtista) {
-        this.listaArtista = listaArtista;
+    public void setListaCanciones(List<Cancion> listaCanciones) {
+        this.listaCanciones = listaCanciones;
     }
+
+ 
 
     public ServicioCancion getService() {
         return service;
@@ -118,12 +165,45 @@ public class FormCancion implements Serializable{
         this.service = service;
     }
 
-    public String getDisco() {
+
+    public Integer getIdDisco() {
+        return idDisco;
+    }
+
+    public void setIdDisco(Integer idDisco) {
+        this.idDisco = idDisco;
+    }
+
+    public Integer getIdArtista() {
+        return idArtista;
+    }
+
+    public void setIdArtista(Integer idArtista) {
+        this.idArtista = idArtista;
+    }
+
+    public String getDiscos() {
+        return discos;
+    }
+
+    public void setDiscos(String discos) {
+        this.discos = discos;
+    }
+
+    public Disco getDisco() {
         return disco;
     }
 
-    public void setDisco(String disco) {
+    public void setDisco(Disco disco) {
         this.disco = disco;
+    }
+
+    public ServicioDisco getServicio() {
+        return servicio;
+    }
+
+    public void setServicio(ServicioDisco servicio) {
+        this.servicio = servicio;
     }
            
     

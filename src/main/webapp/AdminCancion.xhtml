@@ -17,18 +17,12 @@
                 <h:form id="form1">
                     <p:growl id="messages" showDetail="true"/>
 
-                    <p:panel header="Agregar Canciones" style="width: 1300px;"> 
+                    <p:panel header="Agregar Canciones" style="width: 1300px;">
 
-                        <p:column>
-                            <h:outputText value = "Disco: " />
-                        </p:column>
-                        
-                         <p:column>
-                             <h:outputText value = "#{formCancion.disco}" />
-                        </p:column>
-
-                        
-                        <p:panelGrid columns="5" styleClass="showcase-text-align-center">
+                        <p:panelGrid columns="6" styleClass="showcase-text-align-center">
+                            <p:column>
+                                <h:outputText value = "Disco: " />
+                            </p:column>
                             <p:column>
                                 <h:outputText value = "Nombre: " />
                             </p:column>
@@ -43,7 +37,14 @@
                             </p:column>
                             <p:column>
 
-                            </p:column>  
+                            </p:column> 
+
+                            <p:column>
+                                <p:selectOneMenu id="genero" value="#{formCancion.idDisco}" style="width:200px">
+                                    <f:selectItem itemLabel="Seleccionar Disco" itemValue="#{null}" noSelectionOption="true" />
+                                    <f:selectItems value ="#{formCancion.listaDisco}" var="disco" itemValue="#{disco.id}" itemLabel="#{disco.nombre}" /> 
+                                </p:selectOneMenu>
+                            </p:column>
 
                             <p:column>
                                 <p:inputText value = "#{formCancion.nombre}"/>
@@ -55,7 +56,12 @@
                             </p:column>
 
                             <p:column>
-                                <p:inputText value = "#{formCancion.formato}"/>
+                                <p:selectOneMenu value="#{formCancion.formato}" style="width:200px">
+                                    <f:selectItem itemValue="" itemLabel= "" />
+                                    <f:selectItem itemValue="Mp3" itemLabel= "Mp3" />
+                                </p:selectOneMenu>
+
+                                
                             </p:column>
 
 
@@ -71,6 +77,97 @@
                         </p:panelGrid>                    
 
                         <p:spacer height="10px;"/>
+                        
+                        <p:dataTable id="actualizar" value="#{formCancion.listaCanciones}" var="cancion"  widgetVar="50" style="width: 1250px;" editable="true"
+                                     paginator="true"         
+                                     rows="5"                                     
+                                     paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros">
+
+                            <p:ajax event="rowEdit" listener="#{formCancion.actualizarCancion}" update=":form1:messages" />  
+                            <p:ajax event="rowEditCancel" listener="#{formCancion.cancelarActualizacion}" update=":form1:messages"  /> 
+
+                            <p:column filterBy="#{cancion.nombre}" headerText="Nombre" filterMatchMode="contains" sortBy="#{cancion.nombre}">
+                                <f:facet name="header">  
+                                    <h:outputText value="Nombre" />  
+                                </f:facet>
+                                <p:cellEditor>  
+                                    <f:facet name="output">  
+                                        <h:outputText value="#{cancion.nombre}" />  
+                                    </f:facet>  
+                                    <f:facet name="input">  
+                                        <p:inputText value="#{cancion.nombre}" style="width:100%"/>  
+                                    </f:facet>  
+                                </p:cellEditor> 
+                            </p:column>
+                            
+                            <p:column filterBy="#{cancion.nombreDisco}" headerText="Disco" filterMatchMode="contains" sortBy="#{cancion.nombreDisco}">
+                                <f:facet name="header">  
+                                    <h:outputText value="Disco" />  
+                                </f:facet>
+                                <p:cellEditor>  
+                                    <f:facet name="output">  
+                                        <h:outputText value="#{cancion.nombreDisco}" />  
+                                    </f:facet>  
+                                    <f:facet name="input">  
+                                        <p:inputText value="#{cancion.nombreDisco}" style="width:100%"/>  
+                                    </f:facet>  
+                                </p:cellEditor> 
+                            </p:column>
+                            
+                            <p:column  headerText="Duracion"  sortBy="#{cancion.duracion}">
+                                <f:facet name="header">  
+                                    <h:outputText value="Duracion" />  
+                                </f:facet>
+                                <p:cellEditor>  
+                                    <f:facet name="output">  
+                                        <h:outputText value="#{cancion.duracion}" />  
+                                    </f:facet>  
+                                    <f:facet name="input">  
+                                        <p:inputText value="#{cancion.duracion}" style="width:100%"/>  
+                                    </f:facet>  
+                                </p:cellEditor> 
+                            </p:column>
+                            <p:column  headerText="Formato" >
+                                <f:facet name="header">  
+                                    <h:outputText value="Formato" />  
+                                </f:facet>
+                                <p:cellEditor>  
+                                    <f:facet name="output">  
+                                        <h:outputText value="#{cancion.formato}" />  
+                                    </f:facet>  
+                                    <f:facet name="input">  
+                                        <p:inputText value="#{cancion.formato}" style="width:100%"/>  
+                                    </f:facet>  
+                                </p:cellEditor> 
+                            </p:column>
+                            
+                            <p:column filterBy="#{cancion.precio}" headerText="Precio" filterMatchMode="contains" sortBy="#{cancion.precio}">
+                                <f:facet name="header">  
+                                    <h:outputText value="Precio" />  
+                                </f:facet>
+                                <p:cellEditor>  
+                                    <f:facet name="output">  
+                                        <h:outputText value="#{cancion.precio}" />  
+                                    </f:facet>  
+                                    <f:facet name="input">  
+                                        <p:inputText value="#{cancion.precio}" style="width:100%"/>  
+                                    </f:facet>  
+                                </p:cellEditor> 
+                            </p:column>
+
+                            
+                            <p:column headerText="Acciones" style="width:100px">  
+                                <p:rowEditor />  
+                            </p:column>
+                            <p:column headerText="Acciones">                          
+                                <f:facet name="Eliminar"/>  
+                                <p:commandButton  ajax="true" action="#{formCancion.eliminarCancion(cancion)}" update=":form1:messages" style="margin-right:50px;" value="Eliminar">
+
+                                </p:commandButton>
+                            </p:column>                            
+
+                        </p:dataTable>
 
 
 

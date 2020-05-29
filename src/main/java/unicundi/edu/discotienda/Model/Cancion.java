@@ -12,24 +12,30 @@ package unicundi.edu.discotienda.Model;
 public class Cancion {
 
     private Integer id;
-    private Integer idArtista;
     private Integer idDisco;
     private String nombre;
     private String duracion;
     private String formato;
     private Integer precio;
+    private String nombreDisco;
     
     public Cancion(){
         
     }
 
-    public Cancion(Integer id, String nombre, String duracion, String formato, Integer precio) {
+    public Cancion(Integer id, Integer idDisco, String nombre, String duracion, String formato, Integer precio, String nombreDisco) {
         this.id = id;
+        this.idDisco = idDisco;
         this.nombre = nombre;
         this.duracion = duracion;
         this.formato = formato;
         this.precio = precio;
+        this.nombreDisco = nombreDisco;
     }
+
+    
+
+   
 
     public Integer getId() {
         return id;
@@ -39,14 +45,7 @@ public class Cancion {
         this.id = id;
     }
 
-    public Integer getIdArtista() {
-        return idArtista;
-    }
-
-    public void setIdArtista(Integer idArtista) {
-        this.idArtista = idArtista;
-    }
-
+   
     public Integer getIdDisco() {
         return idDisco;
     }
@@ -86,5 +85,14 @@ public class Cancion {
     public void setPrecio(Integer precio) {
         this.precio = precio;
     }
+
+    public String getNombreDisco() {
+        return nombreDisco;
+    }
+
+    public void setNombreDisco(String nombreDisco) {
+        this.nombreDisco = nombreDisco;
+    }
+    
 
 }

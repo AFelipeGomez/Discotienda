@@ -5,14 +5,11 @@
  */
 package unicundi.edu.discotienda.beans;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
 
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
@@ -36,6 +33,7 @@ public class FormDisco implements Serializable {
     private List<Disco> listaDisco;
     private List<Artista> listaArtista;
     private Artista artista;
+    private Disco disco;
 
     private Integer idArtista;
     private String nombre;
@@ -50,6 +48,8 @@ public class FormDisco implements Serializable {
 
     @Inject
     private ServicioArtista serviceArtista;
+    
+     
 
     /**
      * Creates a new instance of FormDisco
@@ -105,13 +105,7 @@ public class FormDisco implements Serializable {
 
     }
     
-    public void agregarCanciones(){
-        try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("faces/AdminCancion.xhtml");
-        } catch (IOException ex) {
-            Logger.getLogger(FormDisco.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+    
 
     public List<Disco> getListaDisco() {
         return listaDisco;

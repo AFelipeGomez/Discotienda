@@ -5,11 +5,14 @@
  */
 package unicundi.edu.discotienda.BeansLogica;
 
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
@@ -19,6 +22,8 @@ import javax.inject.Inject;
 import org.primefaces.event.RowEditEvent;
 import unicundi.edu.discotienda.Model.Artista;
 import unicundi.edu.discotienda.Model.Disco;
+import unicundi.edu.discotienda.beans.FormCancion;
+import unicundi.edu.discotienda.beans.FormDisco;
 
 /**
  *
@@ -34,6 +39,9 @@ public class ServicioDisco {
 
     @Inject
     private ServicioSentencia service;
+    
+    @Inject
+    private FormCancion bean;
 
     /**
      * Creates a new instance of ServicioDisco
@@ -111,6 +119,8 @@ public class ServicioDisco {
         
         
    }
+    
+    
 
     public List<Disco> getListaDisco() {
         return listaDisco;
